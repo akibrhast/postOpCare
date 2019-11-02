@@ -1,7 +1,9 @@
+
 from app import db
+from wtforms import StringField,IntegerField
 
 class Patient(db.Model):
-    id = db.Column(db.IntegerField, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(64))
     lastName = db.Column(db.String(64))
     operation = db.Column(db.String(64))
@@ -14,8 +16,8 @@ class Patient(db.Model):
 
 
 class CheckIn(db.Model):
-    id = db.Column(db.IntegerField, primary_key=True)
-    patientId = db.Column(db.IntegerField, db.ForeignKey('patient.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    patientId = db.Column(db.Integer, db.ForeignKey('patient.id'))
     tookMed = db.Column(db.Boolean)
     painLevel = db.Column(db.Integer)
     checkInDate = db.Column(db.DateTime)

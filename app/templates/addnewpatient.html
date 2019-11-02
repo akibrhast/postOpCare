@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block page %}
+<form action="/login" method="POST">
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Patient Info</h1>
+			</div>
+			<div class="login-form">
+				<div class="control-group">
+					<input type="text" class="login-field" value="" placeholder="First Name" name="firstname">
+					<label class="login-field-icon fui-user" ></label>
+                </div>
+                
+				<div class="control-group">
+					<input type="text" class="login-field" value="" placeholder="Last Name" name="lastname">
+					<label class="login-field-icon fui-user" ></label>
+                </div>
+                
+                <div class="control-group">
+					<input type="text" class="login-field" value="" placeholder="Operation" name="operation">
+					<label class="login-field-icon fui-user" ></label>
+                </div>
+                
+                <div class="control-group">
+					<input type="text" class="login-field" value="" placeholder="Prescription Medication" name="presciptionmedication">
+					<label class="login-field-icon fui-user" ></label>
+                </div>
+                
+                <div class="control-group">
+					<input type="text" class="login-field" value="" placeholder="Prescription Dosage" name="prescriptiondosage">
+					<label class="login-field-icon fui-user" ></label>
+                </div>
+                
+                <div class="control-group">
+					<input type="text" class="login-field" value="" placeholder="Prior Opiod" name="prioropiod">
+					<label class="login-field-icon fui-user" ></label>
+                </div>
+                
+                <div class="control-group">
+					<input type="text" class="login-field" value="" placeholder="On Antidepressants" name="onantidepressants">
+					<label class="login-field-icon fui-user" ></label>
+                </div>
+                
+ 
+                
+  
+				<div class="control-group">
+				    <input type="submit" value="Register Patient" class="btn btn-primary btn-large btn-block">
+				</div> 
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}
