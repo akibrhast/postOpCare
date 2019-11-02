@@ -1,3 +1,4 @@
+
 from app import db
 import flask_sqlalchemy
 class User(db.Model):

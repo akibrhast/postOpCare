@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block page %}
+
+<div>
+    <a href="#">Add New Patient</a>
+</div>
+
+
+{% for item in patients%}
+    <div>{{item}}</div>
+{% endfor %}
+
+{%endblock%}
