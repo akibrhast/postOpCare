@@ -8,7 +8,7 @@ class User(db.Model):
 
 class Doctor(User):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    patient = db.relationship("Patient", backref='doctor')
+    # patient = db.relationship("Patient", backref='doctor')
 
 class Patient(User):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
@@ -17,12 +17,13 @@ class Patient(User):
     phoneNumber = db.Column(db.String(64))
     email = db.Column(db.String(64))
     operation = db.Column(db.String(64))
+    operationDate = db.Column(db.Date)
     prescriptionMed = db.Column(db.String(64))
     prescriptionDosage = db.Column(db.Float)
     priorOpioid = db.Column(db.Boolean)
     onAntidepressants = db.Column(db.Boolean)
     addictionRisk = db.Column(db.Integer)
-    checkin = db.relationship("CheckIn", backref='patient')
+    # checkin = db.relationship("CheckIn", backref='patient')
     
 class CheckIn(db.Model):
     id = db.Column(db.Integer, primary_key=True)

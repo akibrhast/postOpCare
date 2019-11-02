@@ -1,10 +1,10 @@
 import os
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request
-#from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker
 from app import app, db
 #from app.forms import LoginForm, AddRecipe, TagList, UpdateRecipe, AddTag
-#from app.models import Recipe, Tag, recipeTag
+from app.models import Patient, Doctor, CheckIn
 from app import Config
 from werkzeug.utils import secure_filename
 
@@ -24,35 +24,32 @@ def login():
 @app.route('/patientcheckin')
 def patientCheckin():
     return render_template("patientcheckin.html")
+
 @app.route('/doctordashboard')
 def doctorDashBoard():
-    patients=[{
-        "Akib",
-        "Rahman",
-        "01/02/2018",
-        "1500",
-        "Cataract Surgery",
-        "DETAILED SURGERY INFORMATION Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sapien eros, pellentesque quis maximus a, rutrum quis ex. Duis aliquet diam et erat scelerisque, et blandit velit posuere. Maecenas eros est, lobortis vitae tincidunt et, molestie sit amet nunc. Nam magna elit, sodales vitae venenatis non, fermentum in dui. Vestibulum nec risus nibh. Sed scelerisque ultricies leo, et blandit nulla ornare eu. Morbi felis mauris, euismod a tincidunt mattis, pharetra eu nulla. Sed posuere semper felis eu pharetra.",
-        },{
-        "Akib",
-        "Rahman",
-        "01/02/2018",
-        "1500",
-        "Cataract Surgery",
-        "DETAILED SURGERY INFORMATION Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sapien eros, pellentesque quis maximus a, rutrum quis ex. Duis aliquet diam et erat scelerisque, et blandit velit posuere. Maecenas eros est, lobortis vitae tincidunt et, molestie sit amet nunc. Nam magna elit, sodales vitae venenatis non, fermentum in dui. Vestibulum nec risus nibh. Sed scelerisque ultricies leo, et blandit nulla ornare eu. Morbi felis mauris, euismod a tincidunt mattis, pharetra eu nulla. Sed posuere semper felis eu pharetra.",
-        },{
-        "Akib",
-        "Rahman",
-        "01/02/2018",
-        "1500",
-        "Cataract Surgery",
-        "DETAILED SURGERY INFORMATION Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sapien eros, pellentesque quis maximus a, rutrum quis ex. Duis aliquet diam et erat scelerisque, et blandit velit posuere. Maecenas eros est, lobortis vitae tincidunt et, molestie sit amet nunc. Nam magna elit, sodales vitae venenatis non, fermentum in dui. Vestibulum nec risus nibh. Sed scelerisque ultricies leo, et blandit nulla ornare eu. Morbi felis mauris, euismod a tincidunt mattis, pharetra eu nulla. Sed posuere semper felis eu pharetra.",
-        }]
+    patients=Patient.query.all()
     return render_template("doctordashboard.html",patients=patients)
 
-@app.route('/addnewpatient')
+@app.route('/addnewpatient', methods=['GET','POST'])
 def addNewPatient():
-    #Create new patient, and send sms/email to patient with username and temp password and website url
+    if request.method == 'POST':
+        patient = Patient(
+            firstName = str(request.form["firstname"]),
+            lastName = str(request.form["lastname"]),
+            phoneNumber = str(request.form["phonenumber"]),
+            email = str(request.form["email"]),
+            operation = str(request.form["operation"]),
+            operationDate = str(request.form['operationdate']),
+            prescriptionMed = str(request.form["presciptionmedication"]),
+            prescriptionDosage = float(request.form["prescriptiondosage"]),
+            priorOpioid = int(request.form["prioropioduse"]),
+            onAntidepressants = int(request.form["onantidepressants"])
+            
+        ) 
+        db.session.add(patient)
+        db.session.commit()
+        return redirect(url_for('doctorDashBoard'))
+
     return render_template("addnewpatient.html")
 
 @app.route('/detailedpatientinfo')
