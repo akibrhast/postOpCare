@@ -3,11 +3,31 @@ from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request
 from sqlalchemy.orm import sessionmaker
 from app import app, db
-#from app.forms import LoginForm, AddRecipe, TagList, UpdateRecipe, AddTag
 from app.models import Patient, Doctor, CheckIn
 from app import Config
 from werkzeug.utils import secure_filename
 from datetime import datetime
+#Random Password generator imports
+import random
+import string
+from twilio.rest import Client
+from sqlalchemy import create_engine
+
+engine = create_engine('sqlite:///app.db', echo=True)
+
+account_sid = 'ACcc6cce1ce80b883431d71d7414af02b3'
+auth_token = '277fa73c21eaaffbb5007f07a63152f3'
+client = Client(account_sid, auth_token)
+
+def sendsms(email,password,phonenumber):
+    message = client.messages.create(
+                     body="Email"+email+". Password: " + password,
+                     from_='+12016854985',
+                     to=phonenumber
+                 )
+
+    print(message.sid)
+
 
 @app.route('/')
 @app.route('/login', methods=['GET','POST'])
@@ -18,6 +38,14 @@ def login():
     if request.method == 'POST':
         POST_EMAIL = str(request.form['email'])
         POST_PASSWORD = str(request.form['password'])
+        Session = sessionmaker(bind=engine)
+        s = Session()
+        query = s.query(Patient).filter(Patient.email.in_([POST_EMAIL]), Patient.password.in_([POST_PASSWORD]))
+        result = query.first()
+        if result:
+            return redirect(url_for('patientCheckin'))
+        else:
+            return render_template('login.html')
 
     return render_template('login.html')
 
@@ -50,8 +78,13 @@ def addNewPatient():
             prescriptionMed = str(request.form["presciptionmedication"]),
             prescriptionDosage = float(request.form["prescriptiondosage"]),
             priorOpioid = int(request.form["prioropioduse"]),
-            onAntidepressants = int(request.form["onantidepressants"])       
-        ) 
+            onAntidepressants = int(request.form["onantidepressants"]),
+            password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+
+        )
+        phonenumber='+15715986645'
+        sendsms(patient.email,patient.password,phonenumber)
+   
         # generate temp password
         # send email/sms to patient to login
         db.session.add(patient)
