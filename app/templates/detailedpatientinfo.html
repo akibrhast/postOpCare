@@ -1,16 +1,19 @@
 <link type="text/css" rel="stylesheet" href="/static/css/detailedpatientinfo.css" >
+<link type="text/css" rel="stylesheet" href="/static/css/doctordashboard.css" >
 
 {% extends "base.html" %}
 
 
 {% block page %}
 
-<div>
-    <a href="{{ url_for('doctorDashBoard') }}">Dashboard</a>
-</div>
+
 
 <div class="patientdetail">
+
     <div class="patientdetail-screen">
+            <div>
+                    <a href="{{ url_for('doctorDashBoard') }}">Dashboard</a>
+                </div>
             <div><span class="key">Last Name, First Name</span><span class="data">{{patient.lastName}}, {{patient.firstName}}</span></div>
             <div><span class="key">Phone Number</span><span class="data">{{patient.phoneNumber}}</span></div>
             <div><span class="key">Email Address</span><span class="data">{{patient.email}}</span></div>
@@ -21,6 +24,7 @@
             <div><span class="key">Antidepressants</span><span class="data">{{patient.onAntidepressants}}</span></div>
             <div><span class="key">Notes</span><span class="data"></span></div>
             <div>
+<<<<<<< HEAD
                     <span class="key">
                         <textarea readonly>
                             {{patient.notes}}
@@ -28,15 +32,32 @@
                     </span>
 
                     
+=======
+                <span class="key">
+                    <textarea readonly>At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.</textarea>
+                </span>     
+>>>>>>> 82b37ae931ad56ba6da6a8a07c3ee0d01935f43e
             </div>
-            {% for item in patient.checkins %}
             <div>
-                {{item.painLevel}}
-                {{item.checkInDate}}
-                {{item.tookMed}}
-            </div>
-            
+                    <table id="customers">
+                <tr>
+                    <th>Check In Date</th>
+                    <th>Pain Level</th>
+                    <th>Took Medicine</th>
+                </tr>
+            {% for item in patient.checkins %}
+                <tr>
+                    <td>{{item.checkInDate}}</td>
+                    <td>{{item.painLevel}}</td>
+                    <td>{{item.tookMed}}</td>
+                </tr>
+                <!-- <div><span class="key">Pain Level</span><span class="data">{{item.painLevel}}</span></div>
+                <div><span class="key">Pain Level</span><span class="data">{{item.checkInDate}}</span></div>
+                <div><span class="key">Pain Level</span><span class="data">{{item.tookMed}}</span></div>             -->
             {% endfor %}
+                    </table>
+            </div>
+
     </div>
 
             
