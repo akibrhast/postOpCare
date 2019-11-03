@@ -3,7 +3,7 @@ from app import db
 import flask_sqlalchemy
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
+    email = db.Column(db.String(64))
     password = db.Column(db.String)
 
 class Doctor(User):
@@ -15,7 +15,6 @@ class Patient(User):
     firstName = db.Column(db.String(64))
     lastName = db.Column(db.String(64))
     phoneNumber = db.Column(db.String(64))
-    email = db.Column(db.String(64))
     operation = db.Column(db.String(64))
     operationDate = db.Column(db.Date)
     prescriptionMed = db.Column(db.String(64))

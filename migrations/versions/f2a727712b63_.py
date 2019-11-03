@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9c62fe3ec610
+Revision ID: f2a727712b63
 Revises: 
-Create Date: 2019-11-02 15:29:07.677518
+Create Date: 2019-11-02 22:05:09.991455
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9c62fe3ec610'
+revision = 'f2a727712b63'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,7 +27,7 @@ def upgrade():
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(), nullable=True),
+    sa.Column('email', sa.String(length=64), nullable=True),
     sa.Column('password', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -41,8 +41,8 @@ def upgrade():
     sa.Column('firstName', sa.String(length=64), nullable=True),
     sa.Column('lastName', sa.String(length=64), nullable=True),
     sa.Column('phoneNumber', sa.String(length=64), nullable=True),
-    sa.Column('email', sa.String(length=64), nullable=True),
     sa.Column('operation', sa.String(length=64), nullable=True),
+    sa.Column('operationDate', sa.Date(), nullable=True),
     sa.Column('prescriptionMed', sa.String(length=64), nullable=True),
     sa.Column('prescriptionDosage', sa.Float(), nullable=True),
     sa.Column('priorOpioid', sa.Boolean(), nullable=True),

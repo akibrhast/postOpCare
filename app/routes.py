@@ -16,7 +16,7 @@ def login():
     #if session is logged in as patient, take to patient home page
     #else return login page
     if request.method == 'POST':
-        POST_USERNAME = str(request.form['username'])
+        POST_EMAIL = str(request.form['email'])
         POST_PASSWORD = str(request.form['password'])
 
     return render_template('login.html')
@@ -50,9 +50,10 @@ def addNewPatient():
             prescriptionMed = str(request.form["presciptionmedication"]),
             prescriptionDosage = float(request.form["prescriptiondosage"]),
             priorOpioid = int(request.form["prioropioduse"]),
-            onAntidepressants = int(request.form["onantidepressants"])
-            
+            onAntidepressants = int(request.form["onantidepressants"])       
         ) 
+        # generate temp password
+        # send email/sms to patient to login
         db.session.add(patient)
         db.session.commit()
         return redirect(url_for('doctorDashBoard'))
