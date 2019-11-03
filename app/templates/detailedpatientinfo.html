@@ -1,5 +1,5 @@
-<link type="text/css" rel="stylesheet" href="/static/css/detailedpatientinfo.css" >
-<link type="text/css" rel="stylesheet" href="/static/css/doctordashboard.css" >
+<link type="text/css" rel="stylesheet" href="/static/css/detailedpatientinfo.css">
+<link type="text/css" rel="stylesheet" href="/static/css/doctordashboard.css">
 
 {% extends "base.html" %}
 
@@ -11,29 +11,31 @@
 <div class="patientdetail">
 
     <div class="patientdetail-screen">
-            <div>
-                    <a href="{{ url_for('doctorDashBoard') }}">Dashboard</a>
-                </div>
-            <div><span class="key">Last Name, First Name</span><span class="data">{{patient.lastName}}, {{patient.firstName}}</span></div>
-            <div><span class="key">Phone Number</span><span class="data">{{patient.phoneNumber}}</span></div>
-            <div><span class="key">Email Address</span><span class="data">{{patient.email}}</span></div>
-            <div><span class="key">Operation Conducted</span><span class="data">{{patient.operation}}</span></div>
-            <div><span class="key">Prescribed Medication</span><span class="data">{{patient.prescriptionMed}}</span></div>
-            <div><span class="key">Presciprtion Dosage</span><span class="data">{{patient.prescriptionDosage}} ml</span></div>
-            <div><span class="key">Prio Opiod Usage</span><span class="data">{{patient.priorOpioid}}</span></div>
-            <div><span class="key">Antidepressants</span><span class="data">{{patient.onAntidepressants}}</span></div>
-            <div><span class="key">Notes</span><span class="data"></span></div>
-            <div>
-                    <span class="key">
-                        <textarea readonly>{{patient.notes}}</textarea>
-                    </span>
+        <div>
+            <a href="{{ url_for('doctorDashBoard') }}">Dashboard</a>
+        </div>
+        <div><span class="key">Last Name, First Name</span><span class="data">{{patient.lastName}},
+                {{patient.firstName}}</span></div>
+        <div><span class="key">Phone Number</span><span class="data">{{patient.phoneNumber}}</span></div>
+        <div><span class="key">Email Address</span><span class="data">{{patient.email}}</span></div>
+        <div><span class="key">Operation Conducted</span><span class="data">{{patient.operation}}</span></div>
+        <div><span class="key">Prescribed Medication</span><span class="data">{{patient.prescriptionMed}}</span></div>
+        <div><span class="key">Presciprtion Dosage</span><span class="data">{{patient.prescriptionDosage}} ml</span>
+        </div>
+        <div><span class="key">Prio Opiod Usage</span><span class="data">{{patient.priorOpioid}}</span></div>
+        <div><span class="key">Antidepressants</span><span class="data">{{patient.onAntidepressants}}</span></div>
+        <div><span class="key">Notes</span><span class="data"></span></div>
+        <div>
+            <span class="key">
+                <textarea readonly>{{patient.notes}}</textarea>
+            </span>
 
-                    
-            </div>
 
-            <div>
-                {% if patient.checkins.count() > 0 %}
-                <table id="customers">
+        </div>
+
+        <div>
+            {% if patient.checkins.count() > 0 %}
+            <table id="customers">
                 <tr>
                     <th>Check In Date</th>
                     <th>Pain Level</th>
@@ -49,17 +51,31 @@
                 <div><span class="key">Pain Level</span><span class="data">{{item.checkInDate}}</span></div>
                 <div><span class="key">Pain Level</span><span class="data">{{item.tookMed}}</span></div>             -->
                 {% endfor %}
-                </table>
-                {% else %}
-                <p>No checkins available for this patient</p>
-                {% endif %}
-            </div>
-            
+            </table>
+            {% else %}
+            <p>No checkins available for this patient</p>
+            {% endif %}
+        </div>
+        <div>
+
+        {% if patient.checkins.count() > 0 %}
+        <table id="customers">
+            <tr>
+                <th>Average Pain Level</th>
+                <th>Percentage Took Med</th>
+            </tr>
+            <tr>
+                <td>{{averagePainLevel}}</td>
+                <td>{{percentTookMed}}</td>
+            </tr>
+        </table>
+        {% endif %}
+    </div>
 
     </div>
 
-            
-    </div>
+
+</div>
 </div>
 
 <div>
