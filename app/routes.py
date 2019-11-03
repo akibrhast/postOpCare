@@ -115,7 +115,8 @@ def detailedPatientInfo(patientid):
         for checkin in patient.checkins:
             averagePainLevel += checkin.painLevel
             percentTookMed += int(checkin.tookMed)
-        percentTookMed /= patient.checkins.count()
+        percentTookMed /= patient.checkins.count() 
         averagePainLevel /= patient.checkins.count()
+        percentTookMed*=100
 
     return render_template("detailedpatientinfo.html", patient=patient,averagePainLevel=averagePainLevel, percentTookMed=percentTookMed)
