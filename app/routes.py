@@ -68,7 +68,7 @@ def patientCheckin():
         )
         db.session.add(checkin)
         db.session.commit()
-        return render_template("patientcheckin.html")
+        return render_template("success.html")
     return render_template("patientcheckin.html")
 
 @app.route('/doctordashboard')
