@@ -47,15 +47,30 @@
 					<input type="text" class="login-field" value="" placeholder="Prescription Dosage (ml)" name="prescriptiondosage">
 					<label class="login-field-icon fui-user" ></label>
                 </div>
-                
-                <div class="control-group">
-					<input type="text" class="login-field" value="" placeholder="Prior Opioid Use" name="prioropioduse">
-					<label class="login-field-icon fui-user" ></label>
+                <div class="app-title">
+                    <h1>Medical History</h1>
                 </div>
-                
                 <div class="control-group">
-					<input type="text" class="login-field" value="" placeholder="On Antidepressants" name="onantidepressants">
-					<label class="login-field-icon fui-user" ></label>
+                <p>Prior Opioid Use</p>
+                <label class="radio-button-container">Yes
+                    <input type="radio" name="prioropioduse" value=true>
+                    <span class="checkmark"></span>
+                    </label>
+                    <label class="radio-button-container">No
+                    <input type="radio" checked="checked" name="prioropioduse" value=false>
+                    <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <p>On Antidepressants</p>
+                    <label class="radio-button-container">Yes
+                        <input type="radio" name="tookmed" value=true>
+                        <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-button-container">No
+                        <input type="radio" checked="checked" name="onantidepressants" value=false>
+                        <span class="checkmark"></span>
+                        </label>
                 </div>
 				<div class="control-group">
 				    <input type="submit" value="Register Patient" class="btn btn-primary btn-large btn-block">

@@ -10,7 +10,7 @@
   }
   
   #customers tr:nth-child(even){background-color: #f2f2f2;}
-  #customers tr:nth-child(odd){background-color: #97979c;}
+  #customers tr:nth-child(odd){background-color: #b9b9b9;}
 
   #customers tr:hover {background-color: #ddd;}
   
@@ -18,6 +18,6 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color:black;
+    background-color: #195680;
     color: white;
   }
