@@ -3,7 +3,7 @@
 {% block page %}
 
 <div>
-    <a href="#">Add New Patient</a>
+    <a href="{{ url_for('addNewPatient') }}">Add New Patient</a>
 </div>
 
 {% for patient in patients%}
