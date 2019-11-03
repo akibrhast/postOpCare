@@ -24,18 +24,22 @@
             <div><span class="key">Antidepressants</span><span class="data">{{patient.onAntidepressants}}</span></div>
             <div><span class="key">Notes</span><span class="data"></span></div>
             <div>
-                <span class="key">
-                    <textarea readonly>At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.</textarea>
-                </span>     
+                    <span class="key">
+                        <textarea readonly>{{patient.notes}}</textarea>
+                    </span>
+
+                    
             </div>
+
             <div>
-                    <table id="customers">
+                {% if patient.checkins.count() > 0 %}
+                <table id="customers">
                 <tr>
                     <th>Check In Date</th>
                     <th>Pain Level</th>
                     <th>Took Medicine</th>
                 </tr>
-            {% for item in patient.checkins %}
+                {% for item in patient.checkins %}
                 <tr>
                     <td>{{item.checkInDate}}</td>
                     <td>{{item.painLevel}}</td>
@@ -44,9 +48,13 @@
                 <!-- <div><span class="key">Pain Level</span><span class="data">{{item.painLevel}}</span></div>
                 <div><span class="key">Pain Level</span><span class="data">{{item.checkInDate}}</span></div>
                 <div><span class="key">Pain Level</span><span class="data">{{item.tookMed}}</span></div>             -->
-            {% endfor %}
-                    </table>
+                {% endfor %}
+                </table>
+                {% else %}
+                <p>No checkins available for this patient</p>
+                {% endif %}
             </div>
+            
 
     </div>
 

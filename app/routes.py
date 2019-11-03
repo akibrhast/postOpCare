@@ -38,7 +38,6 @@ def login():
     if request.method == 'POST':
         POST_EMAIL = str(request.form['email'])
         POST_PASSWORD = str(request.form['password'])
-        user_all = Patient.query.all()
         user = User.query.filter_by(email=POST_EMAIL).first()
         if user is None or not user.check_password(POST_PASSWORD):
             return render_template('login.html')
@@ -89,14 +88,15 @@ def addNewPatient():
             operationDate = datetime.strptime(request.form['operationdate'], '%Y-%m-%d'),
             prescriptionMed = str(request.form["presciptionmedication"]),
             prescriptionDosage = float(request.form["prescriptiondosage"]),
+            notes = str(request.form["notes"]),
             priorOpioid = int(request.form["prioropioduse"]),
             onAntidepressants = int(request.form["onantidepressants"]),
             password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6)),
             isDoctor = False
         )
         phonenumber='+15715986645'
-        patient.password = "a"
-        # sendsms(patient.email,patient.password,phonenumber)
+        # patient.password = "a"
+        sendsms(patient.email,patient.password,phonenumber)
         patient.set_password(patient.password)
 
         db.session.add(patient)
