@@ -108,4 +108,14 @@ def addNewPatient():
 @app.route('/detailedpatientinfo/<patientid>', methods=['GET','POST'] )
 def detailedPatientInfo(patientid):
     patient = Patient.query.filter_by(id=patientid).first_or_404()
-    return render_template("detailedpatientinfo.html", patient=patient)
+
+    percentTookMed = 0
+    averagePainLevel = 0
+    if patient.checkins.count() > 0:
+        for checkin in patient.checkins:
+            averagePainLevel += checkin.painLevel
+            percentTookMed += int(checkin.tookMed)
+        percentTookMed /= patient.checkins.count()
+        averagePainLevel /= patient.checkins.count()
+
+    return render_template("detailedpatientinfo.html", patient=patient,averagePainLevel=averagePainLevel, percentTookMed=percentTookMed)
