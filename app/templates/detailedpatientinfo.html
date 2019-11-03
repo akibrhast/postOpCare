@@ -17,4 +17,14 @@
 <div>{{patient.onAntidepressants}}</div>
 
 
+<div>
+    {% for item in patient.checkin %}
+        <div>
+            {{item.painLevel}}
+            {{item.checkInDate}}
+            {{item.tookMed}}
+        </div>
+        
+    {% endfor %}
+</div>
 {%endblock%}

@@ -3,11 +3,11 @@ from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request
 from sqlalchemy.orm import sessionmaker
 from app import app, db
-from app.models import Patient, Doctor, CheckIn
+from app.models import Patient, Doctor, CheckIn, User
 from app import Config
 from werkzeug.utils import secure_filename
 from datetime import datetime
-#Random Password generator imports
+from flask_login import current_user, login_user, logout_user,login_required
 import random
 import string
 from twilio.rest import Client
@@ -21,7 +21,7 @@ client = Client(account_sid, auth_token)
 
 def sendsms(email,password,phonenumber):
     message = client.messages.create(
-                     body="Email"+email+". Password: " + password,
+                     body="Email: "+email+" Password: " + password,
                      from_='+12016854985',
                      to=phonenumber
                  )
@@ -38,26 +38,38 @@ def login():
     if request.method == 'POST':
         POST_EMAIL = str(request.form['email'])
         POST_PASSWORD = str(request.form['password'])
-        Session = sessionmaker(bind=engine)
-        s = Session()
-        query = s.query(Patient).filter(Patient.email.in_([POST_EMAIL]), Patient.password.in_([POST_PASSWORD]))
-        result = query.first()
-        if result:
-            return redirect(url_for('patientCheckin'))
-        else:
+        user_all = Patient.query.all()
+        user = User.query.filter_by(email=POST_EMAIL).first()
+        if user is None or not user.check_password(POST_PASSWORD):
             return render_template('login.html')
+        else:
+            login_user(user)
+            if(user.isDoctor):
+                return redirect(url_for('doctorDashBoard'))
+            else:
+                return redirect(url_for('patientCheckin'))
 
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
 @app.route('/patientcheckin', methods=['GET','POST'])
+@login_required
 def patientCheckin():
     if request.method == 'POST':
+        patient = Patient.query.filter_by(id=current_user.id).first()
         checkin = CheckIn(
-            tookMed = request.form['tookmed'],
-            painLevel = request.form['painlevel'],
-            checkInDate = datetime.now()
+            tookMed = int(request.form['tookmed']),
+            painLevel = int(request.form['painlevel']),
+            checkInDate = datetime.now(),
+            patient = patient
         )
-        return render_template("login.html")
+        db.session.add(checkin)
+        db.session.commit()
+        return render_template("patientcheckin.html")
     return render_template("patientcheckin.html")
 
 @app.route('/doctordashboard')
@@ -79,14 +91,14 @@ def addNewPatient():
             prescriptionDosage = float(request.form["prescriptiondosage"]),
             priorOpioid = int(request.form["prioropioduse"]),
             onAntidepressants = int(request.form["onantidepressants"]),
-            password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
-
+            password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6)),
+            isDoctor = False
         )
         phonenumber='+15715986645'
-        sendsms(patient.email,patient.password,phonenumber)
-   
-        # generate temp password
-        # send email/sms to patient to login
+        patient.password = "a"
+        # sendsms(patient.email,patient.password,phonenumber)
+        patient.set_password(patient.password)
+
         db.session.add(patient)
         db.session.commit()
         return redirect(url_for('doctorDashBoard'))
