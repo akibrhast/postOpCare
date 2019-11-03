@@ -30,12 +30,21 @@
 
                     
             </div>
-
+            {% for item in patient.checkins %}
+            <div>
+                {{item.painLevel}}
+                {{item.checkInDate}}
+                {{item.tookMed}}
+            </div>
+            
+            {% endfor %}
+    </div>
 
             
     </div>
 </div>
 
+<div>
 
 
 {% endblock %}
