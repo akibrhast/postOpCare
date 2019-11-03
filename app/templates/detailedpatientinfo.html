@@ -1,4 +1,5 @@
 <link type="text/css" rel="stylesheet" href="/static/css/detailedpatientinfo.css" >
+<link type="text/css" rel="stylesheet" href="/static/css/doctordashboard.css" >
 
 {% extends "base.html" %}
 
@@ -23,21 +24,30 @@
             <div><span class="key">Antidepressants</span><span class="data">{{patient.onAntidepressants}}</span></div>
             <div><span class="key">Notes</span><span class="data"></span></div>
             <div>
-                    <span class="key">
-                        <textarea readonly>At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
-                        </textarea>
-                    </span>
-
-                    
+                <span class="key">
+                    <textarea readonly>At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.</textarea>
+                </span>     
             </div>
-            {% for item in patient.checkins %}
             <div>
-                {{item.painLevel}}
-                {{item.checkInDate}}
-                {{item.tookMed}}
-            </div>
-            
+                    <table id="customers">
+                <tr>
+                    <th>Check In Date</th>
+                    <th>Pain Level</th>
+                    <th>Took Medicine</th>
+                </tr>
+            {% for item in patient.checkins %}
+                <tr>
+                    <td>{{item.checkInDate}}</td>
+                    <td>{{item.painLevel}}</td>
+                    <td>{{item.tookMed}}</td>
+                </tr>
+                <!-- <div><span class="key">Pain Level</span><span class="data">{{item.painLevel}}</span></div>
+                <div><span class="key">Pain Level</span><span class="data">{{item.checkInDate}}</span></div>
+                <div><span class="key">Pain Level</span><span class="data">{{item.tookMed}}</span></div>             -->
             {% endfor %}
+                    </table>
+            </div>
+
     </div>
 
             
