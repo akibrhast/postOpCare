@@ -6,6 +6,9 @@
 
 
 
+<div>
+        <a href="{{ url_for('addNewPatient') }}">Add New Patient</a>
+</div>
 
 <table id="customers">
     <tr>
@@ -13,35 +16,16 @@
         <th>Surgery Type</th>
         <th>Time of Surgery</th>
     </tr>
-    
+    {%for patient in patients%}
         <tr>
             <td><a href="{{ url_for('detailedPatientInfo', patientid=patient.id) }}">{{patient.id}}</a></td>
             <td>{{patient.operation}}</td>
             <td>{{patient.operationDate}}</td>
         </tr>
-    
+    {%endfor%}
 
 
     </table>
 
-<!-- <div>
-    <a href="#">Add New Patient</a>
-</div> -->
-
-
-<!-- 
-{% for patient in patients%} -->
-    <!-- <div><a href="{{ url_for('detailedPatientInfo', patientid=patient.id) }}">{{patient.id}}</a></div> -->
-
-
-    <!-- <div>{{patient.phoneNumber}}</div>
-    <div>{{patient.email}}</div>
-    <div></div>
-    <div>{{patient.prescriptionMed}}</div>
-    <div>{{patient.prescriptionDosage}}</div>
-    <div>{{patient.priorOpioid}}</div>
-    <div>{{patient.onAntidepressants}}</div>
-
-{% endfor %} -->
 
 {%endblock%}

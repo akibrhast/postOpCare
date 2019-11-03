@@ -46,7 +46,7 @@ def addNewPatient():
             phoneNumber = str(request.form["phonenumber"]),
             email = str(request.form["email"]),
             operation = str(request.form["operation"]),
-            operationDate = str(request.form['operationdate']),
+            operationDate = datetime.strptime(request.form['operationdate'], '%Y-%m-%d'),
             prescriptionMed = str(request.form["presciptionmedication"]),
             prescriptionDosage = float(request.form["prescriptiondosage"]),
             priorOpioid = int(request.form["prioropioduse"]),
