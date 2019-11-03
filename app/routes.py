@@ -89,6 +89,7 @@ def addNewPatient():
             operationDate = datetime.strptime(request.form['operationdate'], '%Y-%m-%d'),
             prescriptionMed = str(request.form["presciptionmedication"]),
             prescriptionDosage = float(request.form["prescriptiondosage"]),
+            notes = str(request.form["notes"]),
             priorOpioid = int(request.form["prioropioduse"]),
             onAntidepressants = int(request.form["onantidepressants"]),
             password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6)),
