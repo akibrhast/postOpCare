@@ -1,0 +1,36 @@
+.patientdetail{
+    margin: 8px auto;
+    width:100%;
+}
+
+.patientdetail-screen {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 5px
+}
+
+.patientdetail-screen div{
+    padding:8px;
+    border-radius: 25px;
+}
+
+.patientdetail-screen .data{
+    float:right;
+
+}
+
+.patientdetail-screen .key{
+    font-weight: bold;
+}
+
+.patientdetail-screen div:nth-child(even){background-color: #f2f2f2;}
+.patientdetail-screen div:hover {background-color: #ddd;}
+
+textarea{
+resize: none;
+height:25%;
+width:100%;
+border-radius: 5px;    
+border: none;
+border-color: transparent;
+}
