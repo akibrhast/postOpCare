@@ -7,7 +7,7 @@ from app import app, db
 from app.models import Patient, Doctor, CheckIn
 from app import Config
 from werkzeug.utils import secure_filename
-
+from datetime import datetime
 
 @app.route('/')
 @app.route('/login', methods=['GET','POST'])
@@ -21,8 +21,15 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/patientcheckin')
+@app.route('/patientcheckin', methods=['GET','POST'])
 def patientCheckin():
+    if request.method == 'POST':
+        checkin = CheckIn(
+            tookMed = request.form['tookmed'],
+            painLevel = request.form['painlevel'],
+            checkInDate = datetime.now()
+        )
+        return render_template("login.html")
     return render_template("patientcheckin.html")
 
 @app.route('/doctordashboard')
@@ -52,6 +59,7 @@ def addNewPatient():
 
     return render_template("addnewpatient.html")
 
-@app.route('/detailedpatientinfo')
-def detailedPatientInfo():
-    return render_template("detailedpatientinfo.html")
+@app.route('/detailedpatientinfo/<patientid>', methods=['GET','POST'] )
+def detailedPatientInfo(patientid):
+    patient = Patient.query.filter_by(id=patientid).first_or_404()
+    return render_template("detailedpatientinfo.html", patient=patient)

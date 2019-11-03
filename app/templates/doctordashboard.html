@@ -7,6 +7,7 @@
 </div>
 
 {% for patient in patients%}
+    <div><a href="{{ url_for('detailedPatientInfo', patientid=patient.id) }}">{{patient.id}}</a></div>
     <div>{{patient.firstName}}</div>
     <div>{{patient.lastName}}</div>
     <div>{{patient.phoneNumber}}</div>

@@ -1,0 +1,47 @@
+<link type="text/css" rel="stylesheet" href="static/css/patientcheckin.css" >
+
+{% extends 'base.html' %}
+
+{% block page %}
+<form action="/patientcheckin" method="POST">
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Check In</h1>
+			</div>
+			<div class="login-form">
+				<div class="control-group">
+                    <p>Did you take perscribed medication?</p>
+					<label class="radio-button-container">Yes
+                        <input type="radio" checked="checked" name="tookmed" value=true>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-button-container">No
+                        <input type="radio" name="tookmed" value=false>
+                        <span class="checkmark"></span>
+                      </label>
+                </div>
+                
+				<div class="control-group">            
+                    <p>Pain Level</p>
+                    <div class="star_rating">
+                        <input type="radio" id="star1" name="painlevel" value="1" />
+                        <label class="far fa-angry" for="star1"></label>
+                        <input type="radio" id="star2" name="painlevel" value="2" />
+                        <label class="far fa-frown"for="star2"></label>
+                        <input type="radio" id="star3" name="painlevel" value="3" />
+                        <label class="far fa-meh" for="star3"></label>
+                        <input type="radio" id="star4" name="painlevel" value="4" />
+                        <label class="far fa-smile" for="star4"></label>
+                        <input type="radio" id="star5" name="painlevel" value="5" />
+                        <label class="far fa-laugh" for="star5"></label>
+                    </div>              
+                </div>
+				<div class="control-group">
+				    <input type="submit" value="Check In" class="btn btn-primary btn-large btn-block">
+				</div> 
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}

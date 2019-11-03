@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block page %}
+
+<div>
+    <a href="{{ url_for('doctorDashBoard') }}">Dashboard</a>
+</div>
+
+<div>{{patient.firstName}}</div>
+<div>{{patient.lastName}}</div>
+<div>{{patient.phoneNumber}}</div>
+<div>{{patient.email}}</div>
+<div>{{patient.operation}}</div>
+<div>{{patient.prescriptionMed}}</div>
+<div>{{patient.prescriptionDosage}}</div>
+<div>{{patient.priorOpioid}}</div>
+<div>{{patient.onAntidepressants}}</div>
+
+
+{%endblock%}
